@@ -4,10 +4,10 @@ Python implementation of the **Lightweight Reticulum Gaming Protocol (LRGP)** �
 
 LRGP enables turn-based and real-time multiplayer games to run over LoRa radios, WiFi, TCP, and any other medium Reticulum supports. Game moves are encoded as tiny msgpack envelopes that fit in a single encrypted packet — no link setup needed.
 
-LRGP now has nine built-in apps. Tic-Tac-Toe, Four in a Row, Checkers, and
-the new **Hex**, **Gomoku**, **Reversi**, **Dots and Boxes**, and **Mancala**
-apps are dependency-free; Chess is available through the optional `chess`
-dependency.
+LRGP now has ten built-in apps. Tic-Tac-Toe, Four in a Row, Checkers, and
+the new **Hex**, **Gomoku**, **Reversi**, **Dots and Boxes**, **Mancala**,
+and **Ultimate Tic-Tac-Toe** apps are dependency-free; Chess is available
+through the optional `chess` dependency.
 
 ## Quick Start
 
@@ -76,6 +76,10 @@ line (`{"m": "c3h"}`) or a pit letter (`{"m": "d"}`) as the move; a player who
 completes a box or ends in their store simply moves again. See
 [docs/placement-games.md](docs/placement-games.md).
 
+The newer single-token games use the same contract; SPEC.md Appendix G
+defines each one. Ultimate Tic-Tac-Toe (`ultimate_ttt.1`) moves are a square
+such as `{"m": "e5"}` on its 9x9 board.
+
 All envelopes are msgpack-serialized and fit within LXMF's 295-byte OPPORTUNISTIC delivery limit — no link setup needed, single encrypted packet.
 
 ### Replay protection
@@ -134,6 +138,7 @@ src/lrgp/
     reversi.py     # Reversi (8x8, automatic passing)
     dots_and_boxes.py # Dots and Boxes (5x5 boxes, extra turns)
     mancala.py     # Mancala (Kalah, six pits of four seeds)
+    ultimate_ttt.py # Ultimate Tic-Tac-Toe (nine small boards)
     four_in_a_row.py # Four in a Row (7x6 gravity, reconstructed state)
     tictactoe.py   # Tic-Tac-Toe reference game
     chess.py       # Chess (python-chess engine, UCI wire format; lrgp[chess])
