@@ -4,11 +4,11 @@ Python implementation of the **Lightweight Reticulum Gaming Protocol (LRGP)** �
 
 LRGP enables turn-based and real-time multiplayer games to run over LoRa radios, WiFi, TCP, and any other medium Reticulum supports. Game moves are encoded as tiny msgpack envelopes that fit in a single encrypted packet — no link setup needed.
 
-LRGP now has thirteen built-in apps. Tic-Tac-Toe, Four in a Row, Checkers,
+LRGP now has fourteen built-in apps. Tic-Tac-Toe, Four in a Row, Checkers,
 and the new **Hex**, **Gomoku**, **Reversi**, **Dots and Boxes**,
-**Mancala**, **Ultimate Tic-Tac-Toe**, **Go**, **Battleship**, and
-**Quoridor** apps are dependency-free; Chess is available through the
-optional `chess` dependency.
+**Mancala**, **Ultimate Tic-Tac-Toe**, **Go**, **Battleship**, **Quoridor**,
+and **Nine Men's Morris** apps are dependency-free; Chess is available
+through the optional `chess` dependency.
 
 ## Quick Start
 
@@ -93,6 +93,9 @@ to shoot, and `{}` to concede or reveal. SPEC.md Appendix H defines it.
 Quoridor (`quoridor.1`) moves step the pawn (`{"m": "e2"}`) or place a wall
 (`{"m": "c3h"}`, `{"m": "c3v"}`).
 
+Nine Men's Morris (`morris.1`) moves place a piece (`{"m": "d2"}`) or slide it
+(`{"m": "d2-d3"}`), with any removal after an `x` (`{"m": "d2-d3xg7"}`).
+
 All envelopes are msgpack-serialized and fit within LXMF's 295-byte OPPORTUNISTIC delivery limit — no link setup needed, single encrypted packet.
 
 ### Replay protection
@@ -155,6 +158,7 @@ src/lrgp/
     go.py          # Go (9x9, area scoring, superko)
     battleship.py  # Battleship (10x10, committed fleets)
     quoridor.py    # Quoridor (9x9, ten walls each)
+    morris.py      # Nine Men's Morris (flying at three)
     four_in_a_row.py # Four in a Row (7x6 gravity, reconstructed state)
     tictactoe.py   # Tic-Tac-Toe reference game
     chess.py       # Chess (python-chess engine, UCI wire format; lrgp[chess])
