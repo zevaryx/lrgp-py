@@ -4,11 +4,12 @@ Python implementation of the **Lightweight Reticulum Gaming Protocol (LRGP)** �
 
 LRGP enables turn-based and real-time multiplayer games to run over LoRa radios, WiFi, TCP, and any other medium Reticulum supports. Game moves are encoded as tiny msgpack envelopes that fit in a single encrypted packet — no link setup needed.
 
-LRGP now has seventeen built-in apps. Tic-Tac-Toe, Four in a Row, Checkers,
+LRGP now has eighteen built-in apps. Tic-Tac-Toe, Four in a Row, Checkers,
 and the new **Hex**, **Gomoku**, **Reversi**, **Dots and Boxes**,
 **Mancala**, **Ultimate Tic-Tac-Toe**, **Go**, **Battleship**, **Quoridor**,
-**Nine Men's Morris**, **Breakthrough**, **Amazons**, and **Pente** apps are
-dependency-free; Chess is available through the optional `chess` dependency.
+**Nine Men's Morris**, **Breakthrough**, **Amazons**, **Pente**, and **Rock
+Paper Scissors** apps are dependency-free; Chess is available through the
+optional `chess` dependency.
 
 ## Quick Start
 
@@ -105,6 +106,11 @@ Amazons (`amazons.1`) moves slide an amazon and shoot an arrow, written as
 Pente (`pente.1`) moves are a square on its 19x19 board, such as `{"m":
 "j10"}`.
 
+Rock Paper Scissors (`rps.1`) is a first-to-three match. The leader commits to
+each choice with a SHA-256 hash (`{"h": ...}`), the follower answers in the
+open (`{"c": "p"}`), and the leader reveals the choice and salt with its next
+commitment (`{"c": "r", "k": ..., "h": ...}`).
+
 All envelopes are msgpack-serialized and fit within LXMF's 295-byte OPPORTUNISTIC delivery limit — no link setup needed, single encrypted packet.
 
 ### Replay protection
@@ -171,6 +177,7 @@ src/lrgp/
     breakthrough.py # Breakthrough (8x8, diagonal captures)
     amazons.py     # Amazons (10x10, queen moves and arrows)
     pente.py       # Pente (19x19, pair captures)
+    rps.py         # Rock Paper Scissors (first to three, committed choices)
     four_in_a_row.py # Four in a Row (7x6 gravity, reconstructed state)
     tictactoe.py   # Tic-Tac-Toe reference game
     chess.py       # Chess (python-chess engine, UCI wire format; lrgp[chess])
